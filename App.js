@@ -9,6 +9,8 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ScrollView,
+  Image,
 } from "react-native";
 // import BouncyCheckbox from "react-native-bouncy-checkbox";
 export default function App() {
@@ -50,7 +52,7 @@ export default function App() {
     if (item.id === selectedId) {
       Alert.alert(` email : ${item.email} \n pass: ${item.pass}`);
     }
-    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+    const backgroundColor = item.id === selectedId ? "#df058a" : "#258dd8";
     const color = item.id === selectedId ? "white" : "black";
 
     return (
@@ -148,7 +150,7 @@ export default function App() {
       const newData = [...data];
       const indexToDelete = newData.findIndex((item) => item.id === selectedId);
       if (indexToDelete !== -1) {
-        Alert.alert("Delete item success")
+        Alert.alert("Delete item success");
         newData.splice(indexToDelete, 1);
         setData(newData);
         setSelectedId(undefined);
@@ -160,14 +162,18 @@ export default function App() {
     <SafeAreaView style={styles.safe_area_view}>
       <View style={styles.container}>
         {/* tạo 2 ô text input,set sự kiện nhập cho nó*/}
+        <Image
+          source={require("./assets/block_chain_01.png")}
+          style={{ width: 50, height: 50 }}
+        />
         <TextInput
           style={styles.input}
           onChangeText={(email) => {
-            setInputEmail(email); // Cập nhật giá trị nhập vào ô email
-            validate_email(email); // Validate email
+            setInputEmail(email);
+            validate_email(email);
           }}
           placeholder="Email"
-          value={inputEmail} // Đặt giá trị của ô input email
+          value={inputEmail}
         />
         <Text style={styles.text_Alert}>{alert_email}</Text>
         <TextInput
@@ -192,6 +198,7 @@ export default function App() {
         {/* đổ dữ liệu bằng flatlist ra đây */}
 
         <FlatList
+          style={styles.Flat_List}
           data={data} // Sử dụng data thay vì Data_demo
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
@@ -215,6 +222,20 @@ export default function App() {
             <Text style={styles.text_button}>Remove</Text>
           </TouchableOpacity>
         </View>
+        <ScrollView horizontal={true} style={styles.horizontal_scrollview}>
+          <Image
+            source={require("./assets/block_chain_02.png")}
+            style={{ width: 80, height: 80 }}
+          />
+          <Image
+            source={require("./assets/block_chain_02.png")}
+            style={{ width: 80, height: 80, marginRight: 30, marginLeft: 30 }}
+          />
+          <Image
+            source={require("./assets/block_chain_02.png")}
+            style={{ width: 80, height: 80 }}
+          />
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -255,7 +276,7 @@ const styles = StyleSheet.create({
   button_add: {
     borderRadius: 10,
     padding: 10,
-    backgroundColor: `#662549`,
+    backgroundColor: `#0a3757`,
     width: 100,
     alignItems: "center",
     margin: 10,
@@ -267,5 +288,11 @@ const styles = StyleSheet.create({
   button_add_remove: {
     flexDirection: "row",
     justifyContent: "center",
+  },
+  horizontal_scrollview: {
+    height: 50,
+  },
+  Flat_List: {
+    height: 200,
   },
 });
